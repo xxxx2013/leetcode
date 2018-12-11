@@ -1,27 +1,22 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-    
-    int i;    
-    vector <int> n;
-    int size = nums.size();
-    //map表示键值对
-    map <int,int> mp;
-    for (i = 0;i < size;i++)
-        mp[nums[i]] = i;
-    //生成迭代器
-    map <int,int>::iterator it;
-    for (i = 0;i < size;i++)
-    {
-        it = mp.find(target - nums[i]);
-        if(it != mp.end() && (it -> second != i))
+        
+        unordered_map<int,int> record;
+        vector<int> res;
+        for(int i=0; i<nums.size(); i++)
         {
-            n.push_back(i);
-                n.push_back(it->second);
+            if(record.find(target-nums[i])!=record.end())
+            {
+                int rec[2];
+                rec[0] = i;
+                rec[1] = record[target-nums[i]];
+                res.push_back(rec[0]);
+                res.push_back(rec[1]);
                 break;
+            }
+            record[nums[i]] = i;
         }
+       return res;
     }
-    return n;
-    }
-    
 };

@@ -1,4 +1,5 @@
 class Solution {
+//查找表+滑动窗口
 public:
     bool containsNearbyDuplicate(vector<int>& nums, int k) {
         

@@ -1,40 +1,49 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        if (l1 == nullptr)
-        return l2;
-        if (l2 == nullptr)
-        return l1;
-      
-        int n = 0;
-        ListNode *t = new ListNode(0);
-        ListNode *sptr = t;
         
-        while (l1 != nullptr || l2 != nullptr)
+        if(l1==NULL)
+            return l2;
+        if(l2==NULL)
+            return l1;
+        
+        ListNode* res = new ListNode(NULL);
+        ListNode* cur = res;
+        int c = 0;
+        while(l1!=NULL || l2!=NULL)
         {
-            int val1 = 0;
-            int val2 = 0;
-            if(l1 != nullptr)
+            int num1 = 0,num2 = 0;
+            if(l1!=NULL)
             {
-                val1 = l1 -> val;
-                l1 = l1 -> next;
+                num1 = l1->val;
+                l1 = l1->next;
             }
-            if(l2 != nullptr)
+            if(l2!=NULL)
             {
-                val2 = l2 -> val;
-                l2 = l2 -> next;
+                num2 = l2->val;
+                l2 = l2->next;
             }
-            int tmp = val1 + val2 + n;
-            sptr -> next = new ListNode(tmp%10);
-            n = tmp/10;
-            sptr = sptr -> next;
+            
+            int tmp;
+            tmp = num1 + num2 + c;
+            cur->next = new ListNode(tmp%10);
+            c = tmp/10;
+            cur = cur->next;
             
         }
-        if (n == 1)
+        if(c!=0)
         {
-            sptr -> next = new ListNode(1);
-            
+            cur->next = new ListNode(c);
+            cur = cur->next;
         }
-        return t -> next;
+        return res->next;
     }
 };

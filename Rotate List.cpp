@@ -7,36 +7,40 @@
  * };
  */
 class Solution {
-    /*
-    1.链表成环
-    2.走（length - k）个节点处断环
-    */
+    //快慢链表指针、遍历链表计算链表长度、注意K大于链表长度的问题
 public:
     ListNode* rotateRight(ListNode* head, int k) {
         
-        if(head == NULL || head -> next == NULL || k ==0 ) return head;
+        if(head==NULL)
+            return NULL;
+        if(head->next==NULL)
+            return head;
         
-        ListNode *p = head;
+        ListNode* cur = head;
         int n = 0;
-        while(p -> next)
+        while(cur!=NULL)
         {
-            p = p -> next;
             n++;
+            cur = cur->next;
         }
-        n++;
-        
-        k = k % n;
-        p -> next = head;
-        
-        ListNode *q = head;
-        int i;
-        for(i = 0;i < n - k - 1;i++)
+        k = k%n;
+        ListNode* fast = head;
+        ListNode* slow = head;
+        for(int i=0; i<k; i++)
         {
-            q = q -> next;
+            if(fast!=NULL)
+                fast = fast->next;
         }
-        head = q -> next;
-        q -> next = NULL;
         
-        return head;
+        while(fast->next!=NULL)
+        {
+            fast = fast->next;
+            slow = slow->next;
+        }
+        fast->next = head;
+        fast = slow->next;
+        slow->next = NULL;
+        return fast;
+        
     }
 };

@@ -5,35 +5,34 @@ class Solution {
 public:
     ListNode* swapPairs(ListNode* head) {
         
-        if(head == NULL || head -> next == NULL)
-        {
+        if(head==NULL)
+            return NULL;
+        if(head->next==NULL)
             return head;
-        }
         
-        ListNode *p1,*p2;
-        ListNode *temp;
-        p1 = head;
-        temp = head;
-        while(p1 != NULL && p1 -> next != NULL)
+        ListNode* dummy = new ListNode(NULL);
+        dummy->next = head;
+        ListNode* fast;
+        ListNode* slow = dummy->next;
+        ListNode* temp = dummy->next;
+
+        while(slow!=NULL && slow->next!=NULL)
         {
-            p2 = p1 -> next;
-            p1 -> next = p2 -> next;
-            p2 -> next = p1;
+            fast = slow->next;
+            slow->next = fast->next;
+            fast->next = slow;
             
-            if(temp != head)
+            if(temp!=dummy->next)
             {
-                temp -> next = p2;
+                temp->next = fast;
             }
             else
             {
-                head = p2;
+                dummy->next = fast;
             }
-            
-            temp = p1;
-            p1 = p1 -> next;
-            
+            temp = slow;
+            slow = slow->next;
         }
-        
-        return head;
+        return dummy->next;
     }
 };

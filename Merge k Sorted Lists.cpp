@@ -41,3 +41,60 @@ public:
         
     }
 };
+
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        
+        if(lists.size()==0)
+            return NULL;
+        if(lists.size()==1)
+            return lists[0];
+        
+        int t = 0;
+        ListNode* dummy = new ListNode(NULL);
+        for(int i=0; i<lists.size(); i++)
+        {
+            if(lists[i]!=NULL)
+            {
+                dummy->next = lists[i];
+                t = i;
+                break;
+            }
+        }
+        ListNode* cur = dummy;
+        
+        for(int i=t+1; i<lists.size(); i++)
+        {
+            ListNode* pre = dummy;
+            ListNode* cur = dummy;
+            cur = cur->next;
+            while(lists[i]!=NULL && cur!=NULL)
+            {
+                if(lists[i]->val<=cur->val)
+                {
+                    ListNode* insertNode = new ListNode(lists[i]->val);
+                    pre->next = insertNode;
+                    insertNode->next = cur;
+                    pre = pre->next;
+					lists[i] = lists[i]->next;
+                }
+                else
+                {
+					if(cur->next==NULL)
+					{
+						ListNode* insertNode = new ListNode(lists[i]->val);
+						cur->next = insertNode;
+						insertNode->next = NULL;
+						lists[i] = lists[i]->next;
+					}
+                    cur = cur->next;
+                    pre = pre->next;
+                }
+				
+            }
+        }
+        return dummy->next;
+        
+    }
+};

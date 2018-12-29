@@ -29,3 +29,41 @@ public:
         
     }
 };
+
+class Solution {
+	
+	//采用队列方法
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        
+        vector<vector<int>> res;
+        if(!root)
+            return res;
+        
+        queue<pair<TreeNode*,int>> que;
+        que.push(make_pair(root,0));
+        
+        while(que.empty()==false)
+        {
+            TreeNode* t = que.front().first;
+            int level = que.front().second;
+            que.pop();
+            if(level == res.size())
+            {
+                vector<int> a;
+                res.push_back(a);
+            }
+            res[level].push_back(t->val);
+            if(t->left)
+            {
+                que.push(make_pair(t->left,level+1));
+            }
+            if(t->right)
+            {
+                que.push(make_pair(t->right,level+1));
+            }
+            
+        }
+        return res;
+    }
+};

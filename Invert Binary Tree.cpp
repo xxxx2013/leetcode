@@ -8,16 +8,18 @@
  * };
  */
 class Solution {
+    //递归法
 public:
-    int maxDepth(TreeNode* root) {
+    TreeNode* invertTree(TreeNode* root) {
         
         if(root==NULL)
-            return 0;
+            return NULL;
         
-        int leftMaxDepth = maxDepth(root->left);
-        int rightMaxDepth = maxDepth(root->right);
+        invertTree(root->left);
+        invertTree(root->right);
+        swap(root->left,root->right);
         
-        return max(leftMaxDepth,rightMaxDepth) + 1;
+        return root;
         
     }
 };

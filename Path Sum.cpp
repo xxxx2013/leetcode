@@ -35,3 +35,30 @@ public:
         
     }
 };
+
+class Solution {
+    //µİ¹é·¨Çó½â
+public:
+    bool hasPathSum(TreeNode* root, int sum) {
+        
+        if(root==NULL)
+            return false;
+        
+        if(root->left==NULL && root->right==NULL)
+        {
+            if(root->val == sum)
+                return true;
+            else
+                return false;
+        }
+        
+        if(hasPathSum(root->left,sum-root->val)==false && hasPathSum(root->right,sum-root->val)==false)
+        {
+             return false;
+        }
+           
+        return true;
+        
+        
+    }
+};

@@ -33,3 +33,51 @@ public:
         
     }
 };
+
+class Solution {
+    //递归回溯法求解
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        
+        vector<vector<int>> res;
+        
+        if(nums.size()==0)
+            return res;
+        
+        vector<int> p;
+        used.reserve(nums.size());
+        for(int i=0; i<nums.size(); i++)
+        {
+            used.push_back(false);
+        }
+        permutation(nums,0,p,res);
+        return res;
+    }
+    
+    void permutation(vector<int>& nums, int index, vector<int>& p, vector<vector<int>>& res)
+    {
+        if(index==nums.size())
+        {
+            res.push_back(p);
+            return;
+        }
+        
+        for(int i=0; i<nums.size(); i++)
+        {
+            if(used[i]==false)
+            {
+                p.push_back(nums[i]);
+                used[i] = true;
+                permutation(nums,index+1,p,res);
+                used[i] = false;
+                p.pop_back();
+            }
+            
+            
+        }
+        
+    }
+    
+private:
+    vector<bool> used;
+};

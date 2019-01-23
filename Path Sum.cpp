@@ -30,8 +30,7 @@ public:
     bool hasPathSum(TreeNode* root, int sum) {
         
 
-       return dfs(root,sum,0);
-        
+    return dfs(root,sum,0);
         
     }
 };
@@ -56,9 +55,25 @@ public:
         {
              return false;
         }
-           
+       
         return true;
+    }
+};
+
+class Solution {
+    //µÝ¹é·¨·Ö±ðÅÐ¶Ï×óÓÒ×ÓÊ÷
+public:
+    bool hasPathSum(TreeNode* root, int sum) {
         
+        if(root==NULL)
+            return false;
+        
+        if(root->left==NULL && root->right==NULL)
+        {
+            return root->val==sum;
+        }
+        
+        return hasPathSum(root->left,sum-root->val) || hasPathSum(root->right,sum-root->val);
         
     }
 };

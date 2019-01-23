@@ -33,3 +33,42 @@ public:
         return res;
     }
 };
+
+class Solution {
+    //回溯法求解
+public:
+    vector<vector<int>> pathSum(TreeNode* root, int sum) {
+        
+        vector<vector<int>> res;
+        if(root==NULL)
+            return res;
+        
+        vector<int> p;
+        
+        pathsum(root,sum,p,res);
+        return res;
+    }
+    
+    void pathsum(TreeNode* root,int sum,vector<int>& p,vector<vector<int>>& res)
+    {
+        
+        if(root==NULL)
+            return;
+        
+        if(root->left==NULL && root->right==NULL)
+        {
+            if(sum == root->val)
+            {
+                p.push_back(root->val);
+                res.push_back(p);
+                p.pop_back();
+            }
+            return;
+        }
+        p.push_back(root->val);
+        pathsum(root->left,sum-root->val,p,res);
+        pathsum(root->right,sum-root->val,p,res);
+        p.pop_back();
+        
+    }
+};

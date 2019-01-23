@@ -3,22 +3,26 @@ class Solution {
 public:
     int numIslands(vector<vector<char>>& grid) {
         
-        if(grid.size() == 0)
+        if(grid.size()==0)
             return 0;
         m = grid.size();
         n = grid[0].size();
+        
         int res = 0;
+        
         visited = vector<vector<bool>>(m,vector<bool>(n,false));
         
         for(int i=0; i<m; i++)
-           for(int j=0; j<n; j++)
-           {
-               if(grid[i][j]=='1' && visited[i][j]==false)
-               {
-                   res = res + 1;
-                   dfs(grid, i, j);
-               }
-           }
+        {
+            for(int j=0; j<n; j++)
+            {
+                if(grid[i][j]=='1' && visited[i][j]==false)
+                {
+                    res = res + 1;
+                    dfs(grid,i,j);
+                }
+            }
+        }
         
         return res;
     }
@@ -28,14 +32,14 @@ public:
         visited[x][y] = true;
         for(int i=0; i<4; i++)
         {
-            int newx = x + d[i][0];
-            int newy = y + d[i][1];
-            if(inArea(newx,newy) && visited[newx][newy]==false && grid[newx][newy]=='1')
+            int new_x = x + move[i][0];
+            int new_y = y + move[i][1];
+            if(inArea(new_x,new_y) && visited[new_x][new_y]==false && grid[new_x][new_y]=='1')
             {
-                dfs(grid,newx,newy);
+                dfs(grid,new_x,new_y);
+                
             }
         }
-        return;
     }
     
     bool inArea(int x,int y)
@@ -44,7 +48,8 @@ public:
     }
     
 private:
-    int d[4][2] = {{0,1},{0,-1},{-1,0},{1,0}};
-    int m,n;
+    
+    int m;
+    int n;
     vector<vector<bool>> visited;
-};
+    int move[4][2] = {{0,-1},{0,1},{-1,0},{1,0}};

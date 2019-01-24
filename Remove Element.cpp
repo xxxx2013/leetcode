@@ -25,3 +25,27 @@ public:
         
     }
 };
+
+class Solution {
+    //vector eraseÉ¾³ıÌØ¶¨ÔªËØ
+public:
+    int removeElement(vector<int>& nums, int val) {
+        
+        if(nums.size()==0)
+            return 0;
+        
+        int size = nums.size();
+        
+        for(int i=0; i<nums.size(); i++)
+        {
+            if(nums[i] == val)
+            {
+                nums.erase(nums.begin()+i);
+                size = size - 1;
+                i--;
+            }
+        }
+        
+        return size;
+    }
+};

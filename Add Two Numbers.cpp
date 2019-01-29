@@ -47,3 +47,62 @@ public:
         return res->next;
     }
 };
+
+
+class Solution {
+    //dummy虚拟节点方法
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        
+        ListNode* p1 = l1;
+        ListNode* p2 = l2;
+        ListNode* dummy = new ListNode(-1);
+        ListNode* cur = dummy;
+        int cp = 0;
+        while(p1 || p2)
+        {
+            int a;
+            int b;
+            if(p1==NULL)
+            {
+                a = 0;
+            }
+            else
+            {
+                a = p1->val;
+            }
+            if(p2==NULL)
+            {
+                b = 0;
+            }
+            else
+            {
+                b = p2->val;
+            }
+            cur->next = new ListNode((a + b + cp)%10);
+            cp = (a + b + cp)/10;
+            cur = cur->next;
+            if(p1==NULL)
+            {
+                p1=NULL;
+            }
+            else
+            {
+                p1 = p1->next;
+            }
+            if(p2==NULL)
+            {
+                p2=NULL;
+            }
+            else
+            {
+                p2 = p2->next;            
+            }
+        }
+        if(cp!=0)
+            cur->next = new ListNode(cp);
+        else
+            cur->next = NULL;
+        return dummy->next;
+    }
+};

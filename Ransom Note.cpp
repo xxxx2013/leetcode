@@ -32,3 +32,34 @@ public:
         
     }
 };
+
+class Solution {
+    //map查找表方法,只需一个map
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        
+        map<char,int> rec2;
+        
+        for(int i=0; i<magazine.size(); i++)
+        {
+            rec2[magazine[i]]++;
+        }
+        
+        for(int i=0; i<ransomNote.size(); i++)
+        {
+            if(rec2.find(ransomNote[i])==rec2.end())
+            {
+                return false;
+            }
+            if(rec2.find(ransomNote[i])!=rec2.end())
+            {
+                map<char,int>::iterator iter = rec2.find(ransomNote[i]);
+                if(iter->second==0)
+                    return false;
+                rec2[ransomNote[i]]--;
+            }
+        }
+        return true;
+        
+    }
+};

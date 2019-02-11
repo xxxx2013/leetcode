@@ -7,47 +7,64 @@
  * };
  */
 class Solution {
+    //数据结构队列queue方法,l1,l2,sum分别构造队列queue
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         
-        if(l1==NULL)
-            return l2;
-        if(l2==NULL)
-            return l1;
+        queue<int> q1;
+        queue<int> q2;
+        queue<int> sum;
+        ListNode* dummy = new ListNode(-1);
+        ListNode* cur = dummy;
+        while(l1)
+        {
+            q1.push(l1->val);
+            l1 = l1->next;
+        }
+        while(l2)
+        {
+            q2.push(l2->val);
+            l2 = l2->next;
+        }
+        int cp = 0;
+        while(q1.empty()==false || q2.empty()==false)
+        {
+            int a,b;
+            if(q1.empty()==false)
+            {
+                a = q1.front();
+                q1.pop();
+            }
+            else
+            {
+                a = 0;
+            }
+            if(q2.empty()==false)
+            {
+                b = q2.front();
+                q2.pop();
+            }
+            else
+            {
+                b = 0;
+            }
+            sum.push((a+b+cp)%10);
+            cp = (a+b+cp)/10;
+        }
+        if(cp)
+        {
+            sum.push(cp);
+        }
+        while(sum.empty()==false)
+        {
+            cur->next = new ListNode(sum.front());
+            sum.pop();
+            cur = cur->next;
+        }
         
-        ListNode* res = new ListNode(NULL);
-        ListNode* cur = res;
-        int c = 0;
-        while(l1!=NULL || l2!=NULL)
-        {
-            int num1 = 0,num2 = 0;
-            if(l1!=NULL)
-            {
-                num1 = l1->val;
-                l1 = l1->next;
-            }
-            if(l2!=NULL)
-            {
-                num2 = l2->val;
-                l2 = l2->next;
-            }
-            
-            int tmp;
-            tmp = num1 + num2 + c;
-            cur->next = new ListNode(tmp%10);
-            c = tmp/10;
-            cur = cur->next;
-            
-        }
-        if(c!=0)
-        {
-            cur->next = new ListNode(c);
-            cur = cur->next;
-        }
-        return res->next;
+        return dummy->next;
     }
 };
-
 
 class Solution {
     //dummy虚拟节点方法

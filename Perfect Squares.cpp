@@ -92,3 +92,27 @@ public:
     }
     
 };
+
+class Solution {
+    //动态规划求解2
+public:
+    int numSquares(int n) {
+        
+        vector <int> memo(n+1,n+1);
+        
+        for(int i=1; i*i<=n; i++)
+        {
+            memo[i*i] = 1;
+        }
+        
+        for(int i=1; i<=n; i++)
+        {
+            for(int j=1; j*j+i<=n; j++)
+            {
+                memo[i+j*j] = min(memo[i]+memo[1],memo[i+j*j]);
+            }
+        }
+        
+        return memo[n];
+    }
+};

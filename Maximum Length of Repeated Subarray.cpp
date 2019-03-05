@@ -1,5 +1,5 @@
 class Solution {
-    //动态规划memo[A.size()+1][B.size()+1]解决
+    //动态规划memo[A.size()+1][B.size()+1]解决 F(i,j) = F(i+1,j+1) + 1
 public:
     int findLength(vector<int>& A, vector<int>& B) {
         
